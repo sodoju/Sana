@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Sana — I'm Sorry</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21C7 16.5 3 13 3 8.8 3 5.6 5.4 4 7.6 4 9.4 4 11 5 12 6.6 13 5 14.6 4 16.4 4 18.6 4 21 5.6 21 8.8 21 13 17 16.5 12 21Z' fill='%23a2161f'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=La+Belle+Aurore&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   FOR SANA — a handmade vintage apology pop-up book
+   ============================================================ */
+:root{
+  --pgw: clamp(150px, 44vmin, 470px);          /* one page width  */
+  --pgh: calc(var(--pgw) * 1.32);              /* page height     */
+  --paper:#efe5cc; --paper2:#e6d8b6;
+  --ink:#241a10;
+  --lace:#16110c;
+  --red:#9d1622; --red2:#6e0e15; --red3:#b3242f;
+  --gold:#b08d57;
+  --noise:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0.36 0 0 0 0 0.29 0 0 0 0 0.18 0 0 0 0.05 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+  --fiber:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.02' numOctaves='3' seed='11' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0.42 0 0 0 0 0.33 0 0 0 0 0.18 0 0 0 0.06 0'/></filter><rect width='420' height='420' filter='url(%23f)'/></svg>");
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:#050403;
+  overflow:hidden;
+  font-family:'IM Fell English', Georgia, serif;
+  -webkit-user-select:none;user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* ---------- scene : darkness, candle, dust ---------- */
+#scene{position:fixed;inset:0;overflow:hidden}
+#scene::before{ /* warm candle wash from top-left, like the photo */
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(60% 55% at 14% 10%, rgba(255,166,66,.16), transparent 62%),
+    radial-gradient(45% 42% at 84% 92%, rgba(120,70,30,.07), transparent 70%),
+    radial-gradient(120% 120% at 50% 46%, transparent 55%, rgba(0,0,0,.72) 100%);
+  animation:wash 5.5s ease-in-out infinite alternate;
+}
+@keyframes wash{from{opacity:.92}to{opacity:1}}
+
+.candle{position:absolute;left:5vw;top:7vh;width:calc(var(--pgw)*.16);min-width:44px;z-index:2;pointer-events:none;filter:blur(.4px)}
+.candle .cglow{position:absolute;left:50%;top:-30%;width:340%;aspect-ratio:1;transform:translateX(-50%);
+  background:radial-gradient(circle, rgba(255,176,74,.42), rgba(255,140,40,.14) 42%, transparent 70%);
+  animation:cglow 2.8s ease-in-out infinite alternate}
+@keyframes cglow{from{opacity:.75;transform:translateX(-50%) scale(.94)}to{opacity:1;transform:translateX(-50%) scale(1.06)}}
+.candle .flameW{position:absolute;left:50%;top:-6%;width:34%;aspect-ratio:.52;transform:translateX(-50%);transform-origin:50% 100%}
+.candle .flame{position:absolute;inset:0;border-radius:50% 50% 50% 50%/64% 64% 36% 36%;
+  background:radial-gradient(60% 78% at 50% 72%, #fff3c4 0%, #ffc353 42%, #f07f1f 74%, rgba(200,70,10,0) 100%);
+  filter:blur(.6px);transform-origin:50% 100%;animation:flick 1.9s ease-in-out infinite alternate}
+.candle .core{position:absolute;left:50%;bottom:6%;width:34%;height:44%;transform:translateX(-50%);
+  border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 50% 78%, #ffffff, rgba(255,240,190,.85) 45%, transparent 75%)}
+@keyframes flick{0%,100%{transform:scale(1) skewX(0)}28%{transform:scale(1.1,1.18) skewX(2.4deg)}55%{transform:scale(.94,.9) skewX(-2.2deg)}78%{transform:scale(1.04,1.08) skewX(1.2deg)}}
+.candle .wick{position:absolute;left:50%;top:9.5%;width:5%;height:9%;transform:translateX(-50%);background:#1a120a;border-radius:2px}
+.candle .wax{position:relative;margin-top:16%;width:100%;aspect-ratio:.42;
+  border-radius:16% 16% 22% 22%/8% 8% 5% 5%;
+  background:linear-gradient(100deg,#f4e6c2 8%,#e7d3a4 34%,#c9ad74 62%,#a98c56 92%);
+  box-shadow:inset -6px 0 10px rgba(120,84,30,.45), inset 5px 4px 8px rgba(255,246,214,.75), 0 10px 24px rgba(0,0,0,.7)}
+.candle .wax::before{content:'';position:absolute;left:8%;right:8%;top:-4%;height:16%;
+  border-radius:50%;background:radial-gradient(ellipse at 42% 40%, #fff2c8, #d9bd82 70%, #b6975c);
+  box-shadow:0 2px 4px rgba(90,60,20,.5)}
+.candle .wax::after{content:'';position:absolute;right:14%;top:0;width:16%;height:34%;border-radius:0 40% 60% 40%/0 30% 70% 40%;
+  background:linear-gradient(#f4e6c2,#dcc190)}
+
+#motes{position:absolute;inset:0;z-index:3;pointer-events:none}
+.mote{position:absolute;bottom:-2vh;width:var(--s);height:var(--s);border-radius:50%;
+  background:radial-gradient(circle, rgba(255,216,150,.9), rgba(255,216,150,0) 72%);
+  filter:blur(.4px);opacity:0;animation:rise var(--d) linear var(--dl) infinite}
+@keyframes rise{
+  0%{transform:translate(0,0) scale(1);opacity:0}
+  10%{opacity:var(--o)}70%{opacity:var(--o)}
+  100%{transform:translate(var(--dx),calc(-1 * var(--dy))) scale(.7);opacity:0}
+}
+
+/* ---------- stage / 3D book ---------- */
+.stage{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.tilt{transform:rotateX(6.5deg) translateY(-1.5vh);transform-style:preserve-3d}
+.stage{perspective:2100px}
+.book-wrap{position:relative;width:calc(var(--pgw)*2);height:var(--pgh);transform-style:preserve-3d}
+.book-shadow{position:absolute;left:2%;right:2%;bottom:-9%;height:16%;
+  background:radial-gradient(52% 52% at 50% 50%, rgba(0,0,0,.82), transparent 72%);
+  filter:blur(9px);z-index:0}
+.book{position:absolute;left:50%;top:0;width:var(--pgw);height:100%;
+  transform:translateX(calc(var(--pgw) * -.5));
+  transform-style:preserve-3d;
+  transition:transform 1.7s cubic-bezier(.55,.06,.28,1)}
+.book.open{transform:translateX(0)}
+
+/* pages */
+.leaf{position:absolute;inset:0;width:var(--pgw);height:100%;
+  transform-origin:left center;transform-style:preserve-3d;
+  transition:transform 1.15s cubic-bezier(.32,.04,.24,1)}
+.leaf.turned{transform:rotateY(-180deg)}
+.face{position:absolute;inset:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;overflow:hidden;
+  border-radius:2px 7px 7px 2px;
+  background:
+    radial-gradient(115% 115% at 26% 22%, rgba(255,188,106,.12), transparent 46%),
+    radial-gradient(130% 130% at 50% 42%, rgba(0,0,0,0) 50%, rgba(96,66,22,.32) 102%),
+    var(--fiber), var(--noise),
+    linear-gradient(160deg,#f1e7ce 0%,#ecdfc0 55%,#e3d4ae 100%);
+  box-shadow:inset 0 0 30px rgba(101,72,28,.26), inset 0 0 5px rgba(60,40,10,.55), 1px 1px 3px rgba(0,0,0,.35)}
+.face.back{transform:rotateY(180deg);border-radius:7px 2px 2px 7px}
+.face::before{content:'';position:absolute;top:0;bottom:0;left:0;width:9%;z-index:4;pointer-events:none;
+  background:linear-gradient(90deg, rgba(48,30,9,.36), rgba(48,30,9,.10) 55%, transparent)}
+.face.back::before{left:auto;right:0;background:linear-gradient(270deg, rgba(48,30,9,.36), rgba(48,30,9,.10) 55%, transparent)}
+
+/* aged stains */
+.stains{position:absolute;inset:0;pointer-events:none;z-index:1}
+.st-a{background:
+  radial-gradient(16% 12% at 80% 84%, rgba(122,86,28,.20), transparent 72%),
+  radial-gradient(9% 7% at 16% 68%, rgba(122,86,28,.16), transparent 72%),
+  radial-gradient(6% 5% at 66% 12%, rgba(110,74,20,.14), transparent 72%)}
+.st-b{background:
+  radial-gradient(20% 13% at 22% 88%, rgba(122,86,28,.18), transparent 72%),
+  radial-gradient(8% 6% at 84% 22%, rgba(110,74,20,.15), transparent 72%),
+  radial-gradient(5% 4% at 44% 64%, rgba(110,74,20,.13), transparent 72%)}
+
+/* cover */
+.face.cover{border-radius:3px 9px 9px 3px;
+  background:
+    radial-gradient(120% 120% at 28% 18%, rgba(150,104,48,.20), transparent 55%),
+    radial-gradient(130% 130% at 50% 45%, transparent 48%, rgba(0,0,0,.55) 100%),
+    var(--fiber), var(--noise),
+    linear-gradient(155deg,#33241702 0%,#00000000 100%),
+    linear-gradient(160deg,#372719 0%,#241811 55%,#170e08 100%);
+  box-shadow:inset 0 0 46px rgba(0,0,0,.66), inset 0 0 6px rgba(176,141,87,.28), 2px 2px 8px rgba(0,0,0,.5)}
+.cover .frame{position:absolute;inset:6%;border:1px solid rgba(176,141,87,.5);border-radius:3px;
+  box-shadow:inset 0 0 0 3px rgba(176,141,87,.10), inset 0 0 24px rgba(0,0,0,.5)}
+.cover .fl-c{position:absolute;width:13%;aspect-ratio:1;border-top:2px solid rgba(176,141,87,.65);border-left:2px solid rgba(176,141,87,.65)}
+.cover .fl-c.tr{right:7.5%;top:7.5%;transform:rotate(90deg)}
+.cover .fl-c.bl{left:7.5%;bottom:7.5%;transform:rotate(-90deg)}
+.cover .fl-c.br{right:7.5%;bottom:7.5%;transform:rotate(180deg)}
+.cover .emblem{position:absolute;left:50%;top:24%;width:56%;transform:translateX(-50%)}
+.cover .emblem svg{width:100%;overflow:visible;display:block;filter:drop-shadow(0 3px 5px rgba(0,0,0,.6))}
+.cover .ribbon{position:absolute;left:13%;bottom:6.5%;width:7%;height:17%;
+  background:linear-gradient(100deg,#8f1420,#5d0a13 80%);border-radius:2px 2px 40% 40%;
+  box-shadow:0 2px 5px rgba(0,0,0,.55), inset -2px 0 3px rgba(0,0,0,.4);
+  clip-path:polygon(0 0,100% 0,100% 92%,50% 100%,0 92%)}
+.cover .sub{position:absolute;left:0;right:0;top:63%;text-align:center;
+  font-family:'La Belle Aurore',cursive;color:rgba(214,182,124,.85);
+  font-size:clamp(11px, calc(var(--pgw)*.055), 26px)}
+.cover .tiny{position:absolute;left:0;right:0;bottom:9%;text-align:center;
+  font-family:'IM Fell English',serif;font-style:italic;color:rgba(176,141,87,.5);
+  font-size:clamp(8px, calc(var(--pgw)*.032), 15px);letter-spacing:.14em}
+
+/* cut-paper letter labels */
+.cut{display:inline-block;position:relative;
+  background:linear-gradient(#f9f2e0,#eee2c6);
+  padding:.14em .48em .06em;
+  box-shadow:0 3px 7px rgba(0,0,0,.5), inset 0 0 8px rgba(120,90,40,.22), inset 0 -2px 3px rgba(120,90,40,.18);
+  clip-path:polygon(0% 14%,2.5% 2%,12% 5%,50% 0%,88% 4%,98% 0%,100% 12%,99% 55%,100% 88%,97% 99%,80% 95%,50% 100%,18% 96%,2% 100%,0% 86%,1.5% 45%);
+  transform:rotate(var(--tr,-2deg))}
+.cut span{display:inline-block;font-family:'IM Fell English SC',serif;color:#181008;
+  font-size:clamp(9px, calc(var(--pgw)*.044), 21px);letter-spacing:.05em;
+  transform:rotate(var(--lr,0deg)) translateY(var(--ly,0px))}
+.cut span.sp{width:.45em}
+.cut span:nth-child(3n){--lr:3deg;--ly:-1px}
+.cut span:nth-child(3n+1){--lr:-2.6deg}
+.cut span:nth-child(3n+2){--lr:1.8deg;--ly:1px}
+.cut.big span{font-size:clamp(26px, calc(var(--pgw)*.16), 78px)}
+.cut.mid span{font-size:clamp(12px, calc(var(--pgw)*.06), 30px)}
+
+/* tape */
+.tape{position:absolute;width:20%;height:4.6%;background:rgba(226,211,164,.5);
+  box-shadow:0 1px 3px rgba(0,0,0,.35), inset 0 0 6px rgba(255,250,220,.4);
+  clip-path:polygon(2% 8%,98% 0%,100% 92%,0% 100%);z-index:6;pointer-events:none}
+
+/* lace containers (svg built by JS) */
+.lace{position:absolute;pointer-events:none;z-index:5}
+.lace svg{width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 2px 3px rgba(0,0,0,.45))}
+.lace.c-tl{top:-4.5%;left:-4.5%;width:31%;aspect-ratio:1}
+.lace.c-tr{top:-4.5%;right:-4.5%;width:31%;aspect-ratio:1;transform:scaleX(-1)}
+.lace.c-bl{bottom:-4.5%;left:-4.5%;width:31%;aspect-ratio:1;transform:scaleY(-1)}
+.lace.c-br{bottom:-4.5%;right:-4.5%;width:31%;aspect-ratio:1;transform:scale(-1,-1)}
+.lace.edge-l{left:-2.6%;top:18%;width:5.4%;height:64%}
+.lace.edge-r{right:-2.6%;top:18%;width:5.4%;height:64%;transform:scaleX(-1)}
+
+/* handwriting */
+.hand{font-family:'Caveat',cursive;color:var(--ink);line-height:1.12}
+.belle{font-family:'La Belle Aurore',cursive;color:#4a3826}
+
+/* generic page content */
+.pg{position:absolute;inset:0;z-index:3}
+.pg .center{position:absolute;inset:0 9% 0 11%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:3%}
+.doodle{width:34%;opacity:.92;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+.doodle.sm{width:22%}
+.note{font-size:clamp(11px, calc(var(--pgw)*.048), 24px);opacity:.85}
+.msg{font-size:clamp(17px, calc(var(--pgw)*.098), 48px);transform:rotate(-1.4deg)}
+.subnote{margin-top:2%}
+.stitch{position:absolute;inset:6.5%;border:2px dashed rgba(157,22,34,.5);border-radius:3px;pointer-events:none}
+.stamp{display:inline-block;padding:.35em .7em .2em;border:2px solid rgba(157,22,34,.65);border-radius:6px;
+  color:rgba(139,20,30,.85);font-family:'IM Fell English SC',serif;
+  font-size:clamp(8px, calc(var(--pgw)*.034), 16px);letter-spacing:.12em;transform:rotate(-5deg);
+  box-shadow:inset 0 0 8px rgba(157,22,34,.15)}
+.wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:.06em;
+  font-family:'Caveat',cursive;font-weight:700;font-size:calc(var(--pgw)*.34);
+  color:rgba(96,60,18,.05);transform:rotate(-9deg);pointer-events:none;z-index:0}
+.wm svg{width:.62em;height:.62em}
+
+/* dear sana page */
+.dear{position:absolute;left:11%;right:9%;top:12%;bottom:7%;text-align:center}
+.dear .big{position:absolute;left:0;right:6%;top:4%;font-size:clamp(24px, calc(var(--pgw)*.13), 64px);transform:rotate(-2deg)}
+.dear .lab1{position:absolute;right:2%;top:37%;transform:rotate(2.5deg)}
+.dear .lab2{position:absolute;left:4%;top:64%;transform:rotate(-2.5deg)}
+.dear .note{position:absolute;left:0;right:0;bottom:2%;transform:rotate(-1deg)}
+.dear .arrow{position:absolute;right:3%;bottom:12%;width:11%;opacity:.7}
+
+/* final page */
+.final .big{font-size:clamp(20px, calc(var(--pgw)*.1), 50px);letter-spacing:.03em}
+.final .name{font-size:clamp(30px, calc(var(--pgw)*.19), 92px);font-weight:700;transform:rotate(-2deg);line-height:1}
+.final .forever{font-size:clamp(16px, calc(var(--pgw)*.085), 42px)}
+.final .beat{width:clamp(26px, calc(var(--pgw)*.13), 64px);animation:beat 1.1s ease-in-out infinite;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+@keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.14)}28%{transform:scale(1)}42%{transform:scale(1.1)}56%{transform:scale(1)}}
+.seal{width:clamp(30px, calc(var(--pgw)*.15), 72px);aspect-ratio:1;border:none;background:none;cursor:pointer;
+  margin-top:1%;filter:drop-shadow(0 4px 6px rgba(0,0,0,.5));transition:transform .18s ease;z-index:8}
+.seal:hover{transform:scale(1.06) rotate(-3deg)}
+.seal:active{transform:scale(.9)}
+.seal svg{width:100%;height:100%;display:block}
+.press{font-size:clamp(9px, calc(var(--pgw)*.036), 17px);opacity:.7}
+.bh{position:absolute;width:var(--bs);pointer-events:none;z-index:20;animation:bh var(--bd) ease-out forwards;opacity:0}
+.bh svg{width:100%;display:block}
+@keyframes bh{
+  0%{transform:translate(0,0) rotate(0) scale(.4);opacity:0}
+  12%{opacity:1}
+  100%{transform:translate(var(--bx),var(--by)) rotate(var(--br)) scale(1);opacity:0}
+}
+
+/* endpaper + pocket */
+.sig .center{gap:5%}
+.pocket{position:absolute;left:20%;right:20%;bottom:10%;height:32%;z-index:4;
+  background:linear-gradient(#eadgbe,#eadcbb 30%,#d9c9a2);
+  background:linear-gradient(#eadcbb,#d9c9a2);
+  clip-path:polygon(0 0,100% 0,100% 74%,50% 100%,0 74%);
+  box-shadow:0 4px 9px rgba(0,0,0,.35)}
+.pocket::before{content:'';position:absolute;inset:7% 6% 20%;border:1.5px dashed rgba(120,88,36,.45);pointer-events:none;
+  clip-path:polygon(0 0,100% 0,100% 74%,50% 100%,0 74%)}
+.keepcard{position:absolute;left:31%;right:31%;bottom:26%;height:26%;z-index:3;
+  background:linear-gradient(#f7f0dc,#ecdfc0);transform:rotate(-4deg);
+  box-shadow:0 -2px 6px rgba(0,0,0,.3);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:7%;gap:4%}
+.keepcard svg{width:26%}
+.keepcard i{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(8px, calc(var(--pgw)*.036), 16px);color:#4a3826}
+
+/* ---------- POP-UP : heart + wings ---------- */
+.popup{position:absolute;left:50%;top:0;width:calc(var(--pgw)*1.94);height:100%;
+  transform:translateX(-50%);transform-style:preserve-3d;
+  z-index:40;pointer-events:none}
+.popup.down{opacity:0;visibility:hidden;transition:opacity .4s ease, visibility 0s linear .4s}
+.popup.up{opacity:1;visibility:visible;transition:opacity .5s ease .3s, visibility 0s linear .3s}
+
+.heart-shadow{position:absolute;left:50%;top:56%;width:46%;height:9%;transform:translateX(-50%);
+  background:radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,.5), transparent 70%);
+  filter:blur(6px);transition:opacity .6s, transform .9s}
+.popup.down .heart-shadow{opacity:0;transform:translateX(-50%) scale(.6)}
+
+.heart{position:absolute;left:50%;top:19.5%;margin-left:calc(var(--pgw) * -.31);
+  width:calc(var(--pgw)*.62);aspect-ratio:400/360;
+  transform-style:preserve-3d;
+  transition:transform 1s cubic-bezier(.22,1.18,.32,1) .32s}
+.popup.down .heart{transform:translateY(26%) scale(.62) translateZ(0)}
+.popup.up .heart{transform:translateY(0) scale(1) translateZ(calc(var(--pgw) * .16));animation:hover 5.8s ease-in-out 1.4s infinite alternate}
+@keyframes hover{
+  from{transform:translateY(0) scale(1) translateZ(calc(var(--pgw) * .16))}
+  to{transform:translateY(-1.6%) scale(1.01) translateZ(calc(var(--pgw) * .16))}}
+
+.half{position:absolute;top:0;width:50.4%;height:100%;overflow:hidden;transform-style:preserve-3d;
+  transition:transform .95s cubic-bezier(.22,1.15,.3,1)}
+.halfL{left:0;transform-origin:100% 50%;filter:drop-shadow(-5px 8px 7px rgba(0,0,0,.42))}
+.halfR{left:49.6%;transform-origin:0% 50%;filter:drop-shadow(5px 8px 7px rgba(0,0,0,.42))}
+.half svg{position:absolute;top:0;width:200.5%;height:100%;display:block}
+.halfL svg{left:0}
+.halfR svg{left:-100%}
+.half::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:3}
+.halfL::after{background:linear-gradient(270deg, rgba(40,24,6,.34), rgba(40,24,6,.10) 12%, transparent 30%)}
+.halfR::after{background:linear-gradient(90deg, rgba(40,24,6,.34), rgba(40,24,6,.10) 12%, transparent 30%)}
+.popup.up .halfL{transform:rotateY(-25deg) rotateZ(-1.6deg)}
+.popup.up .halfR{transform:rotateY(25deg) rotateZ(1.3deg)}
+.popup.down .halfL{transform:rotateY(2deg) translateY(4%)}
+.popup.down .halfR{transform:rotateY(-2deg) translateY(4%)}
+.popup.down .halfL,.popup.down .halfR{transition:transform .5s ease}
+
+.sorry{position:absolute;left:0;right:0;top:30%;text-align:center;z-index:5;
+  font-family:'Caveat',cursive;font-weight:700;color:#20160c;
+  font-size:clamp(22px, calc(var(--pgw)*.095), 48px);letter-spacing:.06em;
+  transform:rotate(-2.4deg) translateZ(calc(var(--pgw) * .1));
+  text-shadow:0 1px 0 rgba(255,252,240,.35), 0 2px 3px rgba(60,35,10,.25);
+  transition:opacity .35s}
+.popup.down .sorry{opacity:0}
+
+.strut{position:absolute;top:54.5%;width:calc(var(--pgw)*.08);aspect-ratio:1.15;
+  background:linear-gradient(#e6d8b6,#cdbd97);
+  clip-path:polygon(50% 0,100% 100%,0 100%);z-index:1;
+  filter:drop-shadow(0 3px 3px rgba(0,0,0,.4));
+  transition:transform .9s cubic-bezier(.22,1.15,.3,1) .35s}
+.strut.sl{left:calc(50% - var(--pgw)*.118);transform-origin:50% 0;transform:rotate(18deg) scaleY(.35)}
+.strut.sr{left:calc(50% + var(--pgw)*.018);transform-origin:50% 0;transform:rotate(-18deg) scaleY(.35)}
+.popup.up .strut.sl{transform:rotate(10deg) scaleY(1)}
+.popup.up .strut.sr{transform:rotate(-10deg) scaleY(1)}
+.popup.down .strut.sl{transform:rotate(18deg) scaleY(.3)}
+.popup.down .strut.sr{transform:rotate(-18deg) scaleY(.3)}
+.popup.down .strut{transition:transform .4s ease}
+
+/* wings */
+.wing{position:absolute;top:15.5%;width:calc(var(--pgw)*.68);height:calc(var(--pgw)*.52);z-index:1}
+.wing svg{width:100%;height:100%;display:block;overflow:visible}
+.wing.left{right:calc(50% + var(--pgw)*.15);transform-origin:97% 44%;animation:flapL 5.7s ease-in-out infinite alternate}
+.wing.right{left:calc(50% + var(--pgw)*.15);transform-origin:3% 44%;animation:flapR 6.45s ease-in-out infinite alternate}
+@keyframes flapL{
+  0%{transform:translateZ(calc(var(--pgw)*.03)) rotateZ(1.3deg) rotateY(-5deg) translateY(1px)}
+  100%{transform:translateZ(calc(var(--pgw)*.03)) rotateZ(-2.8deg) rotateY(9deg) translateY(-8px)}}
+@keyframes flapR{
+  0%{transform:translateZ(calc(var(--pgw)*.03)) rotateZ(-1.3deg) rotateY(5deg) translateY(1px)}
+  100%{transform:translateZ(calc(var(--pgw)*.03)) rotateZ(2.8deg) rotateY(-9deg) translateY(-8px)}}
+.lay{transform-origin:398px 112px;animation:layflap 5.8s ease-in-out infinite alternate}
+.l-top{animation-duration:5.3s;animation-delay:-.25s}
+.l-long{animation-duration:6.3s;animation-delay:-1.15s}
+.l-mid{animation-duration:5.9s;animation-delay:-.65s}
+.l-bot{animation-duration:6.7s;animation-delay:-1.7s}
+.l-cov{animation-duration:5.1s;animation-delay:-.9s}
+@keyframes layflap{from{transform:rotate(-1.5deg)}to{transform:rotate(2.5deg)}}
+.flut{transform-box:fill-box;transform-origin:50% 100%;animation:flut 3s ease-in-out infinite alternate}
+@keyframes flut{from{transform:rotate(-2deg) scaleY(.99)}to{transform:rotate(2.2deg) scaleY(1.012)}}
+
+/* feather parts */
+.memb{stroke:rgba(36,26,14,.8);stroke-width:1.8;filter:url(#roughInk)}
+.fbody{fill:url(#gf);stroke:#241a10;stroke-width:2}
+.fshade{fill:rgba(74,54,28,.26)}
+.ftip{fill:rgba(22,15,8,.6)}
+.fshaft{stroke:#241a10;stroke-width:1.5;fill:none}
+.fbarb{stroke:rgba(36,26,14,.55);stroke-width:.9;fill:none}
+.l-long .fbody{fill:url(#gf2)}
+.l-top .fbody,.l-bot .fbody{fill:url(#gf3)}
+
+/* loose drifting feathers */
+.ff{position:absolute;width:calc(var(--pgw)*.055);opacity:0;pointer-events:none}
+.ff svg{width:100%;display:block;overflow:visible}
+.ff1{left:13%;top:40%;animation:fall 10s linear 2s infinite;--fx:-36px;--fr:80deg}
+.ff2{right:12%;top:34%;animation:fall 12s linear 5.5s infinite;--fx:30px;--fr:-100deg}
+.ff3{left:46%;top:47%;animation:fall 14s linear 9s infinite;--fx:44px;--fr:130deg}
+@keyframes fall{
+  0%,58%{transform:translate(0,-12px) rotate(0deg);opacity:0}
+  64%{opacity:.8}
+  82%{opacity:.65}
+  100%{transform:translate(var(--fx),calc(var(--pgw)*.42)) rotate(var(--fr));opacity:0}}
+
+/* pause wing/popup animation while folded */
+.popup.down .wing,.popup.down .lay,.popup.down .flut,.popup.down .heart,.popup.down .ff{animation-play-state:paused}
+
+/* ---------- hint & nav ---------- */
+.hint{position:absolute;left:0;right:0;bottom:4.2%;text-align:center;z-index:8;pointer-events:none;
+  font-family:'IM Fell English',serif;font-style:italic;
+  color:#c8a468;font-size:clamp(12px, 2vmin, 19px);letter-spacing:.1em;
+  text-shadow:0 0 14px rgba(255,170,80,.35);animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+.hint.gone{opacity:0;transition:opacity .8s}
+.hint svg{width:.85em;height:.85em;vertical-align:-.06em;margin:0 .35em;fill:#c8a468}
+
+.nav{position:absolute;left:0;right:0;bottom:2.6%;display:flex;justify-content:space-between;padding:0 2.6vw;z-index:9;pointer-events:none}
+.nav button{pointer-events:auto;background:none;border:none;cursor:pointer;padding:8px;
+  opacity:.4;transition:opacity .25s, transform .25s;line-height:0}
+.nav button:hover{opacity:.95;transform:scale(1.12)}
+.nav button:disabled{opacity:.08;cursor:default;transform:none}
+.nav svg{width:clamp(26px,4.6vmin,44px);height:clamp(26px,4.6vmin,44px);stroke:#c8a468;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(255,170,80,.3))}
+
+/* mobile */
+@media (max-width:640px){
+  .candle{left:4vw;top:5vh;width:calc(var(--pgw)*.15)}
+  .hint{bottom:6.5%}
+  .nav{bottom:4.2%;padding:0 1.5vw}
+  .lace.c-tl,.lace.c-tr,.lace.c-bl,.lace.c-br{width:36%}
+}
+@media (prefers-reduced-motion:reduce){
+  .wing,.lay,.flut,.mote,.ff,.heart,.candle .flame{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="scene">
+  <!-- candlelight (left, like the reference photo) -->
+  <div class="candle" aria-hidden="true">
+    <div class="cglow"></div>
+    <div class="flameW"><div class="flame"></div><div class="core"></div></div>
+    <div class="wick"></div>
+    <div class="wax"></div>
+  </div>
+
+  <div id="motes" aria-hidden="true"></div>
+
+  <div class="stage" id="stage">
+    <div class="tilt">
+      <div class="book-wrap">
+        <div class="book-shadow"></div>
+
+        <div class="book" id="book">
+
+          <!-- back cover / inside back -->
+          <div class="face front" style="z-index:1">
+            <div class="stains st-b"></div>
+            <div class="lace c-tr" data-lace></div>
+            <div class="lace c-br" data-lace></div>
+            <div class="pg">
+              <div class="keepcard">
+                <svg viewBox="0 0 24 24"><path d="M12 21C7 16.5 3 13 3 8.8 3 5.6 5.4 4 7.6 4 9.4 4 11 5 12 6.6 13 5 14.6 4 16.4 4 18.6 4 21 5.6 21 8.8 21 13 17 16.5 12 21Z" fill="#9d1622" stroke="#241a10" stroke-width="1"/></svg>
+                <i>for keeps</i>
+              </div>
+              <div class="pocket"></div>
+              <div class="center" style="justify-content:flex-start;padding-top:9%">
+                <div class="belle note" style="transform:rotate(-1.5deg)">p.s. this book is yours now.</div>
+                <div class="stamp" style="margin-top:2%">SEALED WITH AN APOLOGY</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ LEAF 0 : front cover / inside cover ============ -->
+          <div class="leaf">
+            <div class="face cover front">
+              <div class="frame"></div>
+              <div class="fl-c tr"></div><div class="fl-c bl"></div><div class="fl-c br"></div>
+              <div class="emblem">
+                <svg viewBox="0 0 220 120" fill="none" stroke="#b08d57" stroke-width="2.4" stroke-linecap="round">
+                  <path d="M110,104 C86,84 66,68 66,48 C66,34 76,26 87,26 C96,26 104,31 110,40 C116,31 124,26 133,26 C144,26 154,34 154,48 C154,68 134,84 110,104 Z"/>
+                  <path d="M110,96 C90,79 74,66 74,49" stroke-width="1.2" opacity=".6"/>
+                  <g stroke-width="1.7">
+                    <path d="M62,52 C48,44 36,44 26,52 M62,60 C46,56 34,58 24,66 M64,68 C52,66 42,70 34,78"/>
+                    <path d="M158,52 C172,44 184,44 194,52 M158,60 C174,56 186,58 196,66 M156,68 C168,66 178,70 186,78"/>
+                  </g>
+                  <g fill="#b08d57" stroke="none">
+                    <path d="M110,58 l2.4,7.2 7.2,2.4 -7.2,2.4 -2.4,7.2 -2.4,-7.2 -7.2,-2.4 7.2,-2.4 Z" opacity=".9"/>
+                  </g>
+                </svg>
+              </div>
+              <div class="sub">a little book of sorry</div>
+              <div class="tiny">HANDLE WITH LOVE</div>
+              <div class="cut" style="position:absolute;left:50%;top:56.5%;transform:translateX(-50%) rotate(-2deg)" data-cut="FOR SANA"></div>
+              <div class="ribbon"></div>
+            </div>
+            <div class="face back">
+              <div class="stains st-a"></div>
+              <div class="wm">S<svg viewBox="0 0 24 24"><path d="M12 21C7 16.5 3 13 3 8.8 3 5.6 5.4 4 7.6 4 9.4 4 11 5 12 6.6 13 5 14.6 4 16.4 4 18.6 4 21 5.6 21 8.8 21 13 17 16.5 12 21Z" fill="currentColor"/></svg>B</div>
+              <div class="lace c-tl" data-lace></div>
+              <div class="lace c-bl" data-lace></div>
+              <div class="pg">
+                <div class="dear">
+                  <div class="hand big">Dear Sana...</div>
+                  <div class="cut lab1" style="--tr:2.5deg" data-cut="MAYBE IT'S A"></div>
+                  <div class="cut lab2" style="--tr:-2deg" data-cut="BLESSING"></div>
+                  <svg class="arrow" viewBox="0 0 60 40" fill="none" stroke="#4a3826" stroke-width="2.5" stroke-linecap="round"><path d="M4,32 C22,30 40,22 52,8"/><path d="M42,8 L53,7 L50,18"/></svg>
+                  <div class="belle note">open with care — my heart is inside</div>
+                </div>
+              </div>
+              <div class="tape" style="right:8%;top:40%;transform:rotate(-38deg)"></div>
+            </div>
+          </div>
+
+          <!-- ============ LEAF 1 : right of spread A / "genuinely sorry" ============ -->
+          <div class="leaf">
+            <div class="face front">
+              <div class="stains st-b"></div>
+              <div class="lace c-tr" data-lace></div>
+              <div class="lace c-br" data-lace></div>
+              <div class="lace edge-r" data-lace-strip></div>
+              <div class="pg">
+                <div style="position:absolute;left:12%;top:12%;width:17%;opacity:.85">
+                  <svg viewBox="0 0 60 90" fill="none" stroke="#2a1c0e" stroke-width="3" stroke-linecap="round">
+                    <path d="M30,10 V64 M14,28 H46"/><path d="M30,10 C30,4 36,2 39,6 M30,64 C30,72 24,76 18,73" stroke-width="2.2"/>
+                    <path d="M0,-7 L1.8,-1.8 L7,0 L1.8,1.8 L0,7 L-1.8,1.8 L-7,0 L-1.8,-1.8 Z" transform="translate(48,14) scale(.9)" fill="#2a1c0e" stroke="none"/>
+                    <path d="M0,-6 L1.5,-1.5 L6,0 L1.5,1.5 L0,6 L-1.5,1.5 L-6,0 L-1.5,-1.5 Z" transform="translate(10,52)" fill="#2a1c0e" stroke="none"/>
+                  </svg>
+                </div>
+                <div class="cut" style="position:absolute;left:10%;bottom:12%;--tr:-2deg" data-cut="IN DISGUISE"></div>
+                <div class="belle note" style="position:absolute;right:9%;bottom:7%;transform:rotate(-2deg);opacity:.75">turn gently, please</div>
+                <div class="tape" style="left:16%;top:6%;transform:rotate(24deg)"></div>
+              </div>
+            </div>
+            <div class="face back">
+              <div class="stains st-a"></div>
+              <div class="lace c-bl" data-lace></div>
+              <div class="stitch"></div>
+              <div class="tape" style="left:14%;top:10%;transform:rotate(-14deg)"></div>
+              <div class="tape" style="right:14%;top:12%;transform:rotate(10deg)"></div>
+              <div class="pg">
+                <div class="center">
+                  <div class="hand msg">I'm genuinely sorry.</div>
+                  <svg class="doodle sm" viewBox="0 0 120 110" fill="none" stroke="#2a1c0e" stroke-width="3" stroke-linecap="round">
+                    <path d="M60,96 C36,76 16,58 16,36 C16,20 28,12 40,12 C50,12 57,18 60,26 C63,18 70,12 80,12 C92,12 104,20 104,36 C104,58 84,76 60,96 Z"/>
+                    <g transform="rotate(-16 60 46)"><rect x="40" y="38" width="40" height="17" rx="5" fill="#eadcba" stroke="#2a1c0e" stroke-width="2.4"/><path d="M53,38 v17 M67,38 v17" stroke-width="2"/></g>
+                  </svg>
+                  <div class="belle subnote note">not for how it looked —<br>for how it felt. that one is on me.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ LEAF 2 ============ -->
+          <div class="leaf">
+            <div class="face front">
+              <div class="stains st-a"></div>
+              <div class="lace c-tr" data-lace></div>
+              <div class="tape" style="left:20%;top:8%;transform:rotate(-10deg)"></div>
+              <div class="tape" style="right:20%;top:10%;transform:rotate(8deg)"></div>
+              <div class="pg">
+                <div class="center">
+                  <div class="hand msg">I never wanted<br>to hurt you.</div>
+                  <svg class="doodle" viewBox="0 0 120 120" fill="none" stroke="#2a1c0e" stroke-width="3" stroke-linecap="round">
+                    <path d="M60,112 C58,84 62,56 76,32"/>
+                    <path d="M62,80 C48,76 38,66 36,52 C52,54 60,64 62,80 Z" fill="#243418" stroke="#101a0a" stroke-width="2"/>
+                    <path d="M66,58 C78,52 84,42 84,30 C72,34 66,44 66,58 Z" fill="#243418" stroke="#101a0a" stroke-width="2"/>
+                    <g transform="translate(80,24)">
+                      <circle r="7" fill="#a2161f" stroke="#4d0810" stroke-width="2"/>
+                      <circle cx="0" cy="-11.5" r="5.4" fill="#b3242f" stroke="#4d0810" stroke-width="1.6"/>
+                      <circle cx="10.9" cy="-3.5" r="5.4" fill="#b3242f" stroke="#4d0810" stroke-width="1.6"/>
+                      <circle cx="6.7" cy="9.3" r="5.4" fill="#b3242f" stroke="#4d0810" stroke-width="1.6"/>
+                      <circle cx="-6.7" cy="9.3" r="5.4" fill="#b3242f" stroke="#4d0810" stroke-width="1.6"/>
+                      <circle cx="-10.9" cy="-3.5" r="5.4" fill="#b3242f" stroke="#4d0810" stroke-width="1.6"/>
+                    </g>
+                  </svg>
+                  <div class="belle subnote note">the last thing I would ever choose.</div>
+                </div>
+              </div>
+            </div>
+            <div class="face back">
+              <div class="stains st-b"></div>
+              <div class="lace c-br" data-lace></div>
+              <div class="pg">
+                <div class="center">
+                  <div class="hand msg">Your smile means more<br>to me than anything.</div>
+                  <svg class="doodle sm" viewBox="0 0 140 70" fill="#2a1c0e">
+                    <path d="M30,10 l2.6,7.8 7.8,2.6 -7.8,2.6 -2.6,7.8 -2.6,-7.8 -7.8,-2.6 7.8,-2.6 Z"/>
+                    <path d="M78,4 l2,6 6,2 -6,2 -2,6 -2,-6 -6,-2 6,-2 Z" opacity=".8"/>
+                    <path d="M112,26 l1.7,5.1 5.1,1.7 -5.1,1.7 -1.7,5.1 -1.7,-5.1 -5.1,-1.7 5.1,-1.7 Z" opacity=".65"/>
+                    <circle cx="58" cy="40" r="2.4" opacity=".6"/><circle cx="94" cy="52" r="2" opacity=".5"/>
+                  </svg>
+                  <div class="belle subnote note">please never hide it because of me.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ LEAF 3 ============ -->
+          <div class="leaf">
+            <div class="face front">
+              <div class="stains st-a"></div>
+              <div class="lace c-tl" data-lace></div>
+              <div class="stitch"></div>
+              <div class="pg">
+                <div class="center">
+                  <div class="hand msg">I don't want a perfect story.<br>I just want our story.</div>
+                  <svg class="doodle sm" viewBox="0 0 150 78" fill="none" stroke="#2a1c0e" stroke-width="3" stroke-linecap="round">
+                    <path d="M36,64 C22,52 10,42 10,28 C10,18 17,13 25,13 C31,13 35,17 36,22 C37,17 41,13 47,13 C55,13 62,18 62,28 C62,42 50,52 36,64 Z"/>
+                    <path d="M112,62 C102,53 98,42 103,34 C107,28 114,30 113,37 C112,30 120,28 123,35 C127,44 120,53 112,62 Z" stroke-dasharray="4 4" stroke-width="2.6"/>
+                    <path d="M112,58 C104,50 102,42 106,36 M112,58 C118,50 120,42 118,36" stroke-width="1.8" opacity=".7"/>
+                    <path d="M68,36 H92 M86,30 l7,6 -7,6"/>
+                  </svg>
+                  <div class="belle subnote note">even the messy pages. especially those.</div>
+                </div>
+              </div>
+            </div>
+            <div class="face back">
+              <div class="stains st-b"></div>
+              <div class="lace c-tr" data-lace></div>
+              <div class="tape" style="left:12%;bottom:8%;transform:rotate(16deg)"></div>
+              <div class="pg">
+                <div class="center">
+                  <div class="hand msg">Please forgive your</div>
+                  <div class="cut mid" style="--tr:-1.5deg" data-cut="BABU"></div>
+                  <svg class="doodle sm" viewBox="0 0 120 110" fill="none" stroke="#2a1c0e" stroke-width="3" stroke-linecap="round">
+                    <path d="M60,96 C36,76 16,58 16,36 C16,20 28,12 40,12 C50,12 57,18 60,26 C63,18 70,12 80,12 C92,12 104,20 104,36 C104,58 84,76 60,96 Z"/>
+                    <path d="M52,46 C55,50 55,56 52,60 C49,56 49,50 52,46 Z" fill="rgba(126,156,178,.4)" stroke-width="2.2"/>
+                    <path d="M68,46 C71,50 71,56 68,60 C65,56 65,50 68,46 Z" fill="rgba(126,156,178,.4)" stroke-width="2.2"/>
+                    <path d="M52,72 C57,68 63,68 68,72" stroke-width="2.4"/>
+                  </svg>
+                  <div class="belle subnote note">he has been rehearsing this page for days.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ LEAF 4 : final / endpaper ============ -->
+          <div class="leaf">
+            <div class="face front">
+              <div class="stains st-a"></div>
+              <div class="lace c-tr" data-lace></div>
+              <div class="lace c-br" data-lace></div>
+              <div class="pg final">
+                <div class="center">
+                  <div class="hand big" style="font-size:clamp(18px, calc(var(--pgw)*.092), 45px)">I love you,</div>
+                  <div class="cut big" style="--tr:-2deg" data-cut="SANA"></div>
+                  <div class="hand forever" style="font-size:clamp(15px, calc(var(--pgw)*.082), 40px)">forever.</div>
+                  <svg class="beat" viewBox="0 0 24 24"><path d="M12 21C7 16.5 3 13 3 8.8 3 5.6 5.4 4 7.6 4 9.4 4 11 5 12 6.6 13 5 14.6 4 16.4 4 18.6 4 21 5.6 21 8.8 21 13 17 16.5 12 21Z" fill="#9d1622" stroke="#241a10" stroke-width="1.1"/></svg>
+                  <button class="seal noTurn" id="seal" aria-label="press the wax seal">
+                    <svg viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="46" fill="#7a0f1a" stroke="#4a070d" stroke-width="3"/>
+                      <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(255,235,225,.18)" stroke-width="2"/>
+                      <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(0,0,0,.3)" stroke-width="1.4"/>
+                      <path d="M50,66 C38,56 30,49 30,39 C30,31 36,27 42,27 C46,27 49,29 50,33 C51,29 54,27 58,27 C64,27 70,31 70,39 C70,49 62,56 50,66 Z" fill="#4a070d"/>
+                      <path d="M36,34 C38,31 42,30 44,31" stroke="rgba(255,220,210,.35)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                  <div class="press belle">press the seal, my love</div>
+                </div>
+              </div>
+            </div>
+            <div class="face back">
+              <div class="stains st-b"></div>
+              <div class="lace c-bl" data-lace></div>
+              <div class="lace edge-l" data-lace-strip></div>
+              <div class="pg sig">
+                <div class="center">
+                  <div class="belle note" style="font-size:clamp(13px, calc(var(--pgw)*.058), 28px)">forever &amp; always,</div>
+                  <div class="hand" style="font-size:clamp(22px, calc(var(--pgw)*.11), 54px);transform:rotate(-2deg)">— your Babu</div>
+                  <svg style="width:14%;opacity:.8" viewBox="0 0 24 24"><path d="M12 21C7 16.5 3 13 3 8.8 3 5.6 5.4 4 7.6 4 9.4 4 11 5 12 6.6 13 5 14.6 4 16.4 4 18.6 4 21 5.6 21 8.8 21 13 17 16.5 12 21Z" fill="#9d1622" stroke="#241a10" stroke-width="1"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /book -->
+
+        <!-- ============ POP-UP HEART + WINGS ============ -->
+        <div class="popup down" id="popup" aria-hidden="true">
+          <div class="heart-shadow"></div>
+
+          <div class="wing left">
+            <svg viewBox="0 0 420 340" id="wingLsvg"><g id="wingLart"></g></svg>
+          </div>
+          <div class="wing right">
+            <svg viewBox="0 0 420 340" id="wingRsvg"><g transform="translate(420,0) scale(-1,1)"><g id="wingRart"></g></g></svg>
+          </div>
+
+          <div class="strut sl"></div>
+          <div class="strut sr"></div>
+          <div class="heart">
+            <div class="half halfL">
+              <svg viewBox="0 0 400 360">
+                <path d="M200,338 C118,272 30,208 30,122 C30,56 80,22 130,22 C163,22 189,42 200,66 C211,42 237,22 270,22 C320,22 370,56 370,122 C370,208 282,272 200,338 Z"
+                      fill="url(#paperG)" stroke="#241a10" stroke-width="5" filter="url(#roughInk)"/>
+                <g filter="url(#roughInk)" stroke="#241a10" fill="none" stroke-linecap="round">
+                  <path d="M118,96 L118,214 M78,140 L158,140" stroke-width="6"/>
+                  <path d="M111,102 L111,221 M71,147 L151,147" stroke-width="2" opacity=".5"/>
+                  <path d="M78,140 C70,141 65,135 68,128 M158,140 C166,139 171,133 168,126 M118,96 C118,88 125,84 131,87 M118,214 C118,222 111,226 105,223" stroke-width="3.2"/>
+                  <circle cx="160" cy="98" r="17" stroke-width="3.4"/>
+                  <circle cx="160" cy="98" r="4" fill="#241a10" stroke="none"/>
+                  <circle cx="160" cy="98" r="27" stroke-width="1.6" stroke-dasharray="1 8"/>
+                  <path d="M74,64 A24,24 0 1 0 98,102 A18,18 0 1 1 74,64 Z" fill="#241a10" opacity=".88" stroke="none"/>
+                  <path d="M0,-9 L2.2,-2.2 L9,0 L2.2,2.2 L0,9 L-2.2,2.2 L-9,0 L-2.2,-2.2 Z" transform="translate(64,182)" fill="#241a10" stroke="none"/>
+                  <path d="M0,-9 L2.2,-2.2 L9,0 L2.2,2.2 L0,9 L-2.2,2.2 L-9,0 L-2.2,-2.2 Z" transform="translate(148,240) scale(.85)" fill="#241a10" stroke="none"/>
+                  <path d="M42,254 Q120,284 186,244" stroke-width="2.6" stroke-dasharray="1 9"/>
+                  <path d="M92,236 v18 M85,243 h14 M85,254 a9,9 0 0 0 14,0" stroke-width="2.6"/>
+                  <g opacity=".24" stroke-width="1.7">
+                    <path d="M52,118 L58,148 M60,114 L66,146 M68,112 L74,142 M76,112 L82,140"/>
+                    <path d="M170,220 L176,248 M162,226 L168,254"/>
+                  </g>
+                  <circle cx="196" cy="120" r="1.8" fill="#241a10" stroke="none"/>
+                  <circle cx="52" cy="216" r="1.8" fill="#241a10" stroke="none"/>
+                  <circle cx="184" cy="196" r="1.6" fill="#241a10" stroke="none"/>
+                </g>
+              </svg>
+            </div>
+            <div class="half halfR">
+              <svg viewBox="0 0 400 360">
+                <path d="M200,338 C118,272 30,208 30,122 C30,56 80,22 130,22 C163,22 189,42 200,66 C211,42 237,22 270,22 C320,22 370,56 370,122 C370,208 282,272 200,338 Z"
+                      fill="url(#paperG)" stroke="#241a10" stroke-width="5" filter="url(#roughInk)"/>
+                <g id="roseDef">
+                  <circle r="30" fill="#8f1420" stroke="#4d0810" stroke-width="2.6"/>
+                  <circle cx="0" cy="-16" r="17" fill="#a2161f" stroke="#5d0c15" stroke-width="2"/>
+                  <circle cx="15.2" cy="-4.9" r="17" fill="#a2161f" stroke="#5d0c15" stroke-width="2"/>
+                  <circle cx="9.4" cy="12.9" r="17" fill="#a2161f" stroke="#5d0c15" stroke-width="2"/>
+                  <circle cx="-9.4" cy="12.9" r="17" fill="#a2161f" stroke="#5d0c15" stroke-width="2"/>
+                  <circle cx="-15.2" cy="-4.9" r="17" fill="#a2161f" stroke="#5d0c15" stroke-width="2"/>
+                  <circle r="12.5" fill="#b3242f" stroke="#5d0c15" stroke-width="1.6"/>
+                  <path d="M2,-2 a4.5,4.5 0 0 1 7,4 a8,8 0 0 1 -12.5,3.5 a11.5,11.5 0 0 1 4.5,-16 a15,15 0 0 1 17,10" fill="none" stroke="#4d0810" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M-15,-13 a19,19 0 0 1 10,-9" fill="none" stroke="rgba(255,226,226,.5)" stroke-width="2.6" stroke-linecap="round"/>
+                </g>
+                <g filter="url(#roughInk)">
+                  <path d="M238,244 C258,216 268,196 284,166 M284,166 C296,186 310,202 322,216 M258,242 C276,250 296,252 318,246" fill="none" stroke="#243a1c" stroke-width="3.6" stroke-linecap="round"/>
+                  <path d="M0,0 C8,-16 26,-22 40,-12 C28,2 12,6 0,0 Z" transform="translate(244,206) rotate(-24)" fill="#243418" stroke="#101a0a" stroke-width="2"/>
+                  <path d="M4,-2 C14,-8 26,-12 36,-12" transform="translate(244,206) rotate(-24)" fill="none" stroke="#0d1607" stroke-width="1.6"/>
+                  <path d="M0,0 C8,-16 26,-22 40,-12 C28,2 12,6 0,0 Z" transform="translate(300,236) rotate(152)" fill="#243418" stroke="#101a0a" stroke-width="2"/>
+                  <path d="M0,0 C8,-16 26,-22 40,-12 C28,2 12,6 0,0 Z" transform="translate(336,168) rotate(-68) scale(.85)" fill="#243418" stroke="#101a0a" stroke-width="2"/>
+                  <use href="#roseDef" transform="translate(288,118) scale(1.18)"/>
+                  <use href="#roseDef" transform="translate(324,204) scale(.82) rotate(24)"/>
+                  <use href="#roseDef" transform="translate(256,212) scale(.6) rotate(-18)"/>
+                  <circle cx="240" cy="148" r="6" fill="#7a0f1a" stroke="#4d0810" stroke-width="2"/>
+                  <path d="M240,154 C242,166 246,176 252,184" fill="none" stroke="#243a1c" stroke-width="2.6" stroke-linecap="round"/>
+                  <circle cx="332" cy="156" r="5" fill="#7a0f1a" stroke="#4d0810" stroke-width="2"/>
+                  <circle cx="300" cy="252" r="2.6" fill="#a2161f"/>
+                  <circle cx="264" cy="106" r="2.4" fill="#a2161f"/>
+                  <circle cx="340" cy="136" r="2.2" fill="#a2161f"/>
+                  <circle cx="228" cy="196" r="2" fill="#a2161f" opacity=".8"/>
+                </g>
+              </svg>
+            </div>
+            <div class="sorry">SORRY</div>
+          </div>
+
+          <div class="ff ff1"><svg viewBox="-14 -92 28 96"><use href="#fea"/></svg></div>
+          <div class="ff ff2"><svg viewBox="-14 -92 28 96"><use href="#fea"/></svg></div>
+          <div class="ff ff3"><svg viewBox="-14 -92 28 96"><use href="#fea"/></svg></div>
+        </div>
+
+      </div><!-- /book-wrap -->
+    </div><!-- /tilt -->
+  </div><!-- /stage -->
+
+  <div class="hint" id="hint">
+    <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
+    <span id="hintText">click the book to open it</span>
+    <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
+  </div>
+
+  <div class="nav">
+    <button id="prevBtn" aria-label="previous page" disabled>
+      <svg viewBox="0 0 24 24"><path d="M15 4 L7 12 L15 20"/></svg>
+    </button>
+    <button id="nextBtn" aria-label="next page">
+      <svg viewBox="0 0 24 24"><path d="M9 4 L17 12 L9 20"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- shared defs : feather, gradients, hand-drawn rough filters -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8f2e3"/><stop offset=".55" stop-color="#e6dabd"/><stop offset="1" stop-color="#b4a483"/>
+    </linearGradient>
+    <linearGradient id="gf2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#efe7d2"/><stop offset=".6" stop-color="#d5c8a9"/><stop offset="1" stop-color="#9d8d6d"/>
+    </linearGradient>
+    <linearGradient id="gf3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#faf5e8"/><stop offset=".6" stop-color="#ecdfc2"/><stop offset="1" stop-color="#c2b291"/>
+    </linearGradient>
+    <radialGradient id="paperG" cx=".5" cy=".38" r=".8">
+      <stop offset="0" stop-color="#f9f2df"/><stop offset=".65" stop-color="#edE0c1"/><stop offset="1" stop-color="#dbcdab"/>
+    </radialGradient>
+    <filter id="roughInk" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.6"/>
+    </filter>
+    <filter id="roughSoft" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="9" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"/>
+    </filter>
+    <g id="fea">
+      <path class="fbody" d="M0,3 C12,-13 16.5,-46 0,-88 C-16.5,-46 -12,-13 0,3 Z"/>
+      <path class="fshade" d="M0,3 C12,-13 16.5,-46 0,-88 C7,-50 7,-18 0,3 Z"/>
+      <path class="ftip" d="M0,-88 C5.5,-72 8,-61 8.5,-54 C4.5,-63 2,-75 0,-88 Z M0,-88 C-5.5,-72 -8,-61 -8.5,-54 C-4.5,-63 -2,-75 0,-88 Z"/>
+      <path class="fshaft" d="M0,1 L0,-80"/>
+      <path class="fbarb" d="M0,-16 C-5,-20 -8.5,-27 -10,-34 M0,-30 C-5,-34 -7.5,-41 -8.5,-48 M0,-44 C-4,-48 -6.5,-54 -7.5,-60 M0,-16 C5,-20 8.5,-27 10,-34 M0,-30 C5,-34 7.5,-41 8.5,-48 M0,-44 C4,-48 6.5,-54 7.5,-60"/>
+    </g>
+  </defs>
+</svg>
+
+<script>
+(function(){
+'use strict';
+const NS='http://www.w3.org/2000/svg';
+const pgw=()=>parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pgw'))||300;
+
+/* ---------- cut-paper labels ---------- */
+document.querySelectorAll('[data-cut]').forEach(node=>{
+  const word=node.getAttribute('data-cut');
+  node.innerHTML=[...word].map(ch=>ch===' '?'<span class="sp">&nbsp;</span>':'<span>'+ch+'</span>').join('');
+});
+
+/* ---------- lace corners & edge strips ---------- */
+function circleSub(x,y,r,cw){const s=cw?1:0;return 'M'+(x-r)+','+y+' a'+r+','+r+' 0 1 '+s+' '+(2*r)+',0 a'+r+','+r+' 0 1 '+s+' '+(-2*r)+',0 Z ';}
+function laceCorner(){
+  const R=168;let holes='';
+  const ring=(rad,n,hr)=>{for(let i=0;i<n;i++){const a=(Math.PI/2)*(i/(n-1));const x=rad*Math.cos(a),y=rad*Math.sin(a);if(x>26||y>26)holes+=circleSub(x,y,hr,false);}};
+  ring(56,3,7);ring(95,4,9);ring(133,5,7.5);
+  ring(75,2,3.4);ring(114,3,3.2);ring(150,4,2.8);
+  let bumps='';
+  for(let i=0;i<=4;i++){const a=(Math.PI/2)*(i/4);const x=R*Math.cos(a),y=R*Math.sin(a);
+    bumps+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="13.5" fill="#16110c"/>';}
+  return '<svg viewBox="-20 -20 208 208"><path fill="#16110c" fill-rule="evenodd" d="M'+R+',0 A'+R+','+R+' 0 0 1 0,'+R+' L0,0 Z '+holes+'/>'+bumps+'</svg>';
+}
+function laceStrip(){
+  const H=200;let d='M4,0 L28,0 L28,'+H+' L4,'+H+' Z ';let holes='';let bumps='';
+  for(let y=11;y<H;y+=22){bumps+='<circle cx="4" cy="'+y+'" r="11" fill="#16110c"/>';holes+=circleSub(4,y,3.6,false);}
+  for(let y=22;y<H;y+=44){holes+=circleSub(20,y,2.6,false);}
+  return '<svg viewBox="-10 -6 44 212" preserveAspectRatio="none"><path fill="#16110c" fill-rule="evenodd" d="'+d+holes+'"/>'+bumps+'</svg>';
+}
+document.querySelectorAll('[data-lace]').forEach(n=>n.innerHTML=laceCorner());
+document.querySelectorAll('[data-lace-strip]').forEach(n=>n.innerHTML=laceStrip());
+
+/* ---------- wings : layered hand-drawn feathers ---------- */
+function qpoint(p0,p1,p2,t){const u=1-t;return [u*u*p0[0]+2*u*t*p1[0]+t*t*p2[0], u*u*p0[1]+2*u*t*p1[1]+t*t*p2[1]];}
+function membrane(p0,p1,p2,w0,w1){
+  const N=10, top=[], bot=[];
+  for(let i=0;i<=N;i++){
+    const t=i/N; const p=qpoint(p0,p1,p2,t);
+    const p2b=qpoint(p0,p1,p2,Math.min(1,t+0.02));
+    let tx=p2b[0]-p[0], ty=p2b[1]-p[1]; const m=Math.hypot(tx,ty)||1; tx/=m; ty/=m;
+    const nx=ty, ny=-tx;
+    const w=(w0+(w1-w0)*t)/2 * 0.92;
+    top.push([p[0]+nx*w, p[1]+ny*w]);
+    bot.push([p[0]-nx*w, p[1]-ny*w]);
+  }
+  bot.reverse();
+  return 'M'+top.concat(bot).map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L')+' Z';
+}
+function wingArt(){
+  const layers=[
+    ['l-top', 10,[400,96], [312,30],[104,28], -22,-66, 56,110, 34,44,'#f1e7cb'],
+    ['l-long',15,[406,114],[288,80],[26,102], -36,-92, 80,150, 36,54,'#e7dcbc'],
+    ['l-mid', 12,[404,130],[282,108],[54,172],-58,-112, 66,120, 32,46,'#eee3c6'],
+    ['l-bot', 11,[406,148],[294,180],[76,306],-82,-136, 70,126, 34,48,'#e5d8b6'],
+    ['l-cov', 16,[402,116],[314,92],[162,114],-40,-86, 24,40, 24,32,'#f5edd6']
+  ];
+  let out='';
+  for(const L of layers){
+    const[cls,n,p0,p1,p2,a0,a1,L0,L1,w0,w1,col]=L;let g='';
+    for(let i=0;i<n;i++){
+      const t=n===1?0:i/(n-1);
+      const p=qpoint(p0,p1,p2,t);
+      const a=a0+(a1-a0)*t+(Math.random()*4-2);
+      const len=L0+(L1-L0)*t, s=len/88;
+      const flut=Math.random()<.4?(' class="flut" style="animation-delay:'+(-Math.random()*3).toFixed(2)+'s;animation-duration:'+(2.6+Math.random()*1.6).toFixed(2)+'s"'):'';
+      g+='<g transform="translate('+p[0].toFixed(1)+' '+p[1].toFixed(1)+') rotate('+a.toFixed(1)+') scale('+s.toFixed(3)+')"><use href="#fea"'+flut+'/></g>';
+    }
+    out+='<g class="lay '+cls+'"><path class="memb" d="'+membrane(p0,p1,p2,w0,w1)+'" fill="'+col+'"/>'+g+'</g>';
+  }
+  return out;
+}
+document.getElementById('wingLart').innerHTML=wingArt();
+document.getElementById('wingRart').innerHTML=wingArt();
+
+/* ---------- floating dust motes ---------- */
+const motes=document.getElementById('motes');
+for(let i=0;i<16;i++){
+  const m=document.createElement('div');m.className='mote';
+  const sz=(2+Math.random()*3.4).toFixed(1);
+  m.style.left=(Math.random()*100)+'%';
+  m.style.setProperty('--s',sz+'px');
+  m.style.setProperty('--d',(9+Math.random()*9).toFixed(1)+'s');
+  m.style.setProperty('--dl',(-Math.random()*14).toFixed(1)+'s');
+  m.style.setProperty('--dx',((Math.random()*120-60)|0)+'px');
+  m.style.setProperty('--dy',(34+Math.random()*30)+'vh');
+  m.style.setProperty('--o',(0.25+Math.random()*0.45).toFixed(2));
+  motes.appendChild(m);
+}
+
+/* ---------- book engine ---------- */
+const book=document.getElementById('book');
+const popup=document.getElementById('popup');
+const leaves=[...document.querySelectorAll('.leaf')];
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+const hint=document.getElementById('hint');
+const hintText=document.getElementById('hintText');
+let turned=0, busy=false;
+
+function layout(){
+  leaves.forEach((leaf,i)=>{
+    leaf.style.zIndex = i<turned ? 10+i : 10+leaves.length-i;
+  });
+  book.classList.toggle('open', turned>0);
+  popup.classList.toggle('up', turned===1);
+  popup.classList.toggle('down', turned!==1);
+  prevBtn.disabled = turned===0;
+  nextBtn.disabled = turned>=leaves.length;
+  hintText.textContent = turned===0 ? 'click the book to open it' : 'tap a page corner to turn';
+}
+function turnFwd(){
+  if(busy||turned>=leaves.length)return;
+  busy=true;
+  const leaf=leaves[turned];
+  leaf.style.zIndex=200;
+  turned++;
+  leaf.classList.add('turned');
+  layout();
+  setTimeout(()=>{layout();busy=false;},1180);
+}
+function turnBack(){
+  if(busy||turned<=0)return;
+  busy=true;
+  turned--;
+  const leaf=leaves[turned];
+  leaf.style.zIndex=200;
+  leaf.classList.remove('turned');
+  book.classList.toggle('open',turned>0);
+  popup.classList.toggle('up',turned===1);
+  popup.classList.toggle('down',turned!==1);
+  prevBtn.disabled=turned===0; nextBtn.disabled=false;
+  setTimeout(()=>{layout();busy=false;},1180);
+}
+nextBtn.addEventListener('click',e=>{e.stopPropagation();turnFwd();});
+prevBtn.addEventListener('click',e=>{e.stopPropagation();turnBack();});
+
+/* click left/right half of the spread */
+const stage=document.getElementById('stage');
+stage.addEventListener('click',e=>{
+  if(e.target.closest('.noTurn'))return;
+  if(turned===0){turnFwd();return;}
+  const r=stage.getBoundingClientRect();
+  (e.clientX - r.left) > r.width/2 ? turnFwd() : turnBack();
+});
+
+/* keyboard */
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')turnFwd();
+  if(e.key==='ArrowLeft')turnBack();
+});
+
+/* swipe (mobile) */
+let tx=0,ty=0,tTime=0;
+stage.addEventListener('touchstart',e=>{const t=e.touches[0];tx=t.clientX;ty=t.clientY;tTime=Date.now();},{passive:true});
+stage.addEventListener('touchend',e=>{
+  const t=e.changedTouches[0];const dx=t.clientX-tx, dy=t.clientY-ty;
+  if(Math.abs(dx)>42&&Math.abs(dx)>Math.abs(dy)*1.4&&Date.now()-tTime<700){
+    dx<0?turnFwd():turnBack();
+    e.preventDefault();
+  }
+},{passive:false});
+
+/* ---------- wax seal heart burst ---------- */
+const seal=document.getElementById('seal');
+seal.addEventListener('click',e=>{
+  e.stopPropagation();
+  const face=seal.closest('.face');
+  const sr=seal.getBoundingClientRect(), fr=face.getBoundingClientRect();
+  const cx=sr.left-fr.left+sr.width/2, cy=sr.top-fr.top+sr.height/2;
+  for(let i=0;i<10;i++){
+    const h=document.createElement('span');h.className='bh';
+    const s=(8+Math.random()*16);
+    h.style.setProperty('--bs',s+'px');
+    h.style.setProperty('--bx',((Math.random()*180-90)|0)+'px');
+    h.style.setProperty('--by',(-40-Math.random()*130|0)+'px');
+    h.style.setProperty('--br',((Math.random()*90-45)|0)+'deg');
+    h.style.setProperty('--bd',(1+Math.random()*0.9).toFixed(2)+'s');
+    h.style.left=cx+'px';h.style.top=cy+'px';
+    h.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 21C7 16.5 3 13 3 8.8 3 5.6 5.4 4 7.6 4 9.4 4 11 5 12 6.6 13 5 14.6 4 16.4 4 18.6 4 21 5.6 21 8.8 21 13 17 16.5 12 21Z" fill="#9d1622" stroke="#241a10" stroke-width="1"/></svg>';
+    face.appendChild(h);
+    setTimeout(()=>h.remove(),2100);
+  }
+});
+
+layout();
+})();
+</script>
+</body>
+</html>
